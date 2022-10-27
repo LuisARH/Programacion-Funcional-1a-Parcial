@@ -434,3 +434,491 @@
 4. Creacion de la instancia User con su contruccion
 
 ---
+
+
+#### Constructores con propiedades nombradas
+
+    class User {
+      String? nombre; //1
+      int? edad;
+
+      User({this.nombre, this.edad}); //2
+
+      String? get getNombre => nombre; //3
+      int? get getEdad => edad;
+    }
+
+    void main(List<String> args) {
+      final usuario1 = User(nombre: "Alex", edad: 50); //4
+      print(usuario1.nombre);
+      print(usuario1.edad);
+    }
+
+1. Creacion de las propiedades
+2. Creacion del contructor
+3. Creacion de los getters
+4. Creacion de la instancia User con su contruccion
+
+---
+
+#### Varios constructores para una clase
+
+
+    class User {
+      String? nombre;
+      int? edad;
+
+      User.nombre(this.nombre); //1
+      User.edad(this.edad); //2
+
+      String? get getNombre => nombre;
+      int? get getEdad => edad;
+    }
+
+    void main(List<String> args) {
+      final usuario1 = User.nombre("Alex"); //3
+      final usuario2 = User.edad(50); //4
+
+      print(usuario1.getNombre);
+      print(usuario1.getEdad);
+
+      print(usuario2.getEdad);
+      print(usuario2.getNombre);
+    }
+
+1. Constructor para la propieda nombre
+2. Constructor para la propiedad edad
+3. Creacion de la instancia usuario1 con el constructor nombre
+4. Creacion de la instancia usuario2 con el constructor edad
+
+---
+
+    class User {
+      String? _nombre;
+      int? _edad;
+
+      User.nombre(String nombre) {
+        _nombre = nombre;
+        _edad = 0;
+      }
+
+      User.edad(int edad) {
+        _nombre = "-";
+        _edad = edad;
+      }
+
+      String? get getNombre => _nombre;
+      int? get getEdad => _edad;
+    }
+
+    void main(List<String> args) {
+      final usuario1 = User.nombre("Alex");
+      final usuario2 = User.edad(50);
+
+      print(usuario1.getNombre);
+      print(usuario1.getEdad);
+
+      print(usuario2.getEdad);
+      print(usuario2.getNombre);
+    }
+
+---
+
+## Herencia y polimorfismo
+
+### Herencia
+- Mecanismo con el que se puede extender la funcionalidad de una clase
+- Por ejemplo usuario puede ser:
+   - Estudiante
+   - Profesor
+   - Directivo
+   - Etc.
+
+---
+
+    class Estudiante {
+      String nombre = "";
+      int edad = 0;
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Profesor {
+      String nombre = "";
+      int edad = 0;
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Directivo {
+      String nombre = "";
+      int edad = 0;
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Hugo";
+      estudiante1.edad = 15;
+      estudiante1.mostrarDatos();
+
+      final profesor1 = Profesor();
+      profesor1.nombre = "Paco";
+      profesor1.edad = 25;
+      profesor1.mostrarDatos();
+
+      final directivo1 = Directivo();
+      directivo1.nombre = "Luis";
+      directivo1.edad = 30;
+      directivo1.mostrarDatos();
+    }
+
+---
+
+    class User {
+      String nombre = "";
+      int edad = 0;
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Estudiante extends User {}
+
+    class Profesor extends User{}
+
+    class Directivo extends User{}
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Hugo";
+      estudiante1.edad = 15;
+      estudiante1.mostrarDatos();
+
+      final profesor1 = Profesor();
+      profesor1.nombre = "Paco";
+      profesor1.edad = 25;
+      profesor1.mostrarDatos();
+
+      final directivo1 = Directivo();
+      directivo1.nombre = "Luis";
+      directivo1.edad = 30;
+      directivo1.mostrarDatos();
+    }
+
+--- 
+
+#### Sobreescritura de metodos (Overriding)
+
+    class User {
+      String nombre = "";
+      int edad = 0;
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Estudiante extends User {
+      @override
+      void mostrarDatos() {
+        print("Estudiante: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Profesor extends User{}
+
+    class Directivo extends User{}
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Hugo";
+      estudiante1.edad = 15;
+      estudiante1.mostrarDatos();
+
+      final profesor1 = Profesor();
+      profesor1.nombre = "Paco";
+      profesor1.edad = 25;
+      profesor1.mostrarDatos();
+
+      final directivo1 = Directivo();
+      directivo1.nombre = "Luis";
+      directivo1.edad = 30;
+      directivo1.mostrarDatos();
+    }
+
+---
+
+#### Uso del constructor super
+
+    class User {
+      String nombre = "";
+      int edad = 0;
+      User(this.nombre, this.edad);
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    class Estudiante extends User {
+      Estudiante(String nombre, int edad) : super(nombre, edad);
+    }
+
+    class Profesor extends User {
+      Profesor(String nombre, int edad) : super(nombre, edad);
+    }
+
+    class Directivo extends User {
+      Directivo(String nombre, int edad) : super(nombre, edad);
+    }
+
+    void main(List<String> args) {
+    final estudiante1 = Estudiante("Hugo", 15);
+    estudiante1.mostrarDatos();
+
+    final profesor1 = Profesor("Paco", 25);
+    profesor1.mostrarDatos();
+
+    final directivo1 = Directivo("Luis", 30);
+    directivo1.mostrarDatos();
+    }
+
+---
+
+#### Ejecucion de metodos de la superclase
+
+    class User {
+      String nombre = "";
+      int edad = 0;
+      User(this.nombre, this.edad);
+
+      void mostrarDatos() {
+        print("Nombre: $nombre");
+        print("Edad $edad");
+      }
+    }
+
+    class Estudiante extends User {
+      Estudiante(String nombre, int edad) : super(nombre, edad);
+
+      @override
+      void mostraDatos() {
+        print("Estudiante");
+        super.mostrarDatos();
+      }
+    }
+
+    class Profesor extends User {
+      Profesor(String nombre, int edad) : super(nombre, edad);
+
+      @override
+      void mostraDatos() {
+        print("Profesor");
+        super.mostrarDatos();
+      }
+    }
+
+    class Directivo extends User {
+      Directivo(String nombre, int edad) : super(nombre, edad);
+
+      @override
+      void mostraDatos() {
+        print("Directivo");
+        super.mostrarDatos();
+      }
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante("Hugo", 15);
+      estudiante1.mostrarDatos();
+
+      final profesor1 = Profesor("Paco", 25);
+      profesor1.mostrarDatos();
+
+      final directivo1 = Directivo("Luis", 30);
+      directivo1.mostrarDatos();
+    }
+
+---
+
+## Clase Abstractas con metodos
+
+- Permites la creacion de metodos y propiedades generales
+sin su implementacion
+- No son instanciables
+
+---
+
+    abstract class User {
+      String? nombre;
+      int? edad;
+
+      void mostarDatos();
+    }
+
+    class Estudiante extends User {
+      void mostrarDatos() {
+        print("Estudiante");
+        print("Nombre: $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Alex";
+      estudiante1.edad = 50;
+      estudiante1.mostarDatos();
+    }
+
+---
+
+#### Clases abstractas con constructores
+
+    abstract class User {
+      String? nombre;
+      int? edad;
+
+      User(this.nombre, this.edad);
+      void mostrarDatos();
+    }
+
+    class Estudiante extends User {
+      Estudiante(String nombre, int edad) : super(nombre, edad);
+      void mostrarDatos() {
+        print("Estudiante");
+        print("Nombre $nombre");
+        print("Edad: $edad");
+      }
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante("Alex", 50);
+      estudiante1.mostrarDatos();
+    }
+
+---
+
+#### Interfaces
+
+    class User {
+      String? nombre;
+      int? edad;
+
+      void mostrarDatos() {}
+    }
+
+    class Estudiante implements User {
+      String? nombre;
+      int? edad;
+
+      void mostrarDatos() {
+        print("Estudiante");
+        print("Nombre $nombre");
+        print("Edad $edad");
+      }
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Alex";
+      estudiante1.edad = 52;
+      estudiante1.mostrarDatos();
+    }
+
+---
+
+#### Multi interfaces
+
+    class User {
+      String? nombre;
+      int? edad;
+
+      void mostrarDatos() {}
+    }
+
+    class Estudiante implements User, Materia {
+      String? nombre;
+      int? edad;
+      String? materia;
+
+      void mostrarDatos() {
+        print("Estudiante");
+        print("Nombre: $nombre");
+        print("Edad $edad");
+      }
+    }
+
+    class Materia {
+      String? materia;
+    }
+
+    void main(List<String> args) {
+      final estudiante1 = Estudiante();
+      estudiante1.nombre = "Alex";
+      estudiante1.edad = 50;
+      estudiante1.mostrarDatos();
+      estudiante1.materia = "Matematicas";
+      print("Materia: ${estudiante1.materia}");
+    }
+
+---
+
+### Atributos y metodos de clase (estaticos)
+#### Propiedades de instancia
+
+    void main(List<String> args) {
+      final usuario1 = User();
+      final usuario2 = User();
+      print(usuario1.maxUsers);
+      print(usuario2.maxUsers);
+    }
+
+    class User {
+      int maxUsers = 10;
+    }
+
+---
+
+#### Propiedades de clase
+
+    void main(List<String> args) {
+      print(User.maxUsers);
+    }
+
+    class User {
+      static int maxUsers = 10;
+    }
+
+---
+
+#### Metodos de clase
+
+    void main(List<String> args) {
+      print(User.maxUsers);
+      print("Maximo de usuarios: ${User.getMAxUsers()}");
+    }
+
+    class User {
+      static int maxUsers = 10;
+
+      static int getMAxUsers() {
+        return maxUsers;
+      }
+    }
