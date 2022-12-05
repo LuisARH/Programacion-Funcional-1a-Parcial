@@ -17,7 +17,7 @@
 
 # Capitulo 6. Instalacion de Elixir y uso de Shell
 ## Funcion sin Argumentos
-```elixir
+
 
 # Funciones, una funcion siempre debe estar dentro de un modulo.
 # Los nombres de funciones son igual que las variables.
@@ -31,255 +31,223 @@
 # Tanto defmodule como def NO son palabras reservadas del lenguaje, son macros
 
 
-defmodule HolaMundo do
- def mensaje do
-Fundamentos de programación funcional con Erlang y Elixir,
- IO.puts("Hola Mundo")
- end
-end
-```
+     defmodule HolaMundo do
+      def mensaje do
+     Fundamentos de programación funcional con Erlang y Elixir,
+      IO.puts("Hola Mundo")
+      end
+     end
+
 ---
 ## Funcion con argumentos
-```elixir
-defmodule Calculadora do
- def suma(n1,n2) do
- n1 + n2
- end
-end
-```
+
+    defmodule Calculadora do
+     def suma(n1,n2) do
+     n1 + n2
+     end
+    end
 ---
 ## Varios modulos dentro de un archivo
-```elixir
-defmodule Calculadora do
- def suma(n1,n2) do
- n1 + n2
- end
-end
-defmodule Areas do
- def area_cuadrado(l) do
- l*l
- end
-end
-```
+
+    defmodule Calculadora do
+     def suma(n1,n2) do
+     n1 + n2
+     end
+    end
+    defmodule Areas do
+     def area_cuadrado(l) do
+     l*l
+     end
+    end
 ---
 ## Reglas de los modulos  
-```elixir
+
 # Reglas de los módulos:
 # -Inicia con una letra mayúscula
 # -Se escribe con el estilo CamelCase
 # -Puede consistir en caracteres alfanuméricos, subrayados y puntos (.).
 # -Regularmente se usa para la organización jerárquica de los módulos. 
 
-defmodule Geometria.Cuadrado do
- def perimetro(l) do
- 4*l
- end
-end
-defmodule Geometria.Rectangulo do
- def perimetro(l1,l2) do
- 2*l1 + 2*l2
- end
-end
-```
+    defmodule Geometria.Cuadrado do
+     def perimetro(l) do
+     4*l
+     end
+    end
+    defmodule Geometria.Rectangulo do
+     def perimetro(l1,l2) do
+     2*l1 + 2*l2
+     end
+    end
 ---
 ## Otra forma de anidar los modulos es la siguiente: 
-```elixir
-defmodule Geometria do
- defmodule Cuadrado do
- def perimetro(l) do
- 4*l
- end
- end
- defmodule Rectangulo do
- def perimetro(l1,l2) do
- 2*l1 + 2*l2
- end
- end
-end
-```
+    defmodule Geometria do
+     defmodule Cuadrado do
+     def perimetro(l) do
+     4*l
+     end
+     end
+     defmodule Rectangulo do
+     def perimetro(l1,l2) do
+     2*l1 + 2*l2
+     end
+     end
+    end
 ---
 ## Funciones expresadas de manera condensada
-```elixir
-defmodule Geometria do
- def perimetro_cuadrado(l), do: 4*l
- def perimetro_rectangulo(l1,l2), do: 2*l1 + 2*l2
-end
-```
+    defmodule Geometria do
+     def perimetro_cuadrado(l), do: 4*l
+     def perimetro_rectangulo(l1,l2), do: 2*l1 + 2*l2
+    end
 ---
 ## Invocaciones de una funcion interna
-```elixir
-defmodule Geometria do
- def perimetro1(l), do: cuadrado(l)
- def perimetro2(l), do: Geometria.cuadrado(l)
- def cuadrado(l), do: 4*l
-end
-```
+    defmodule Geometria do
+     def perimetro1(l), do: cuadrado(l)
+     def perimetro2(l), do: Geometria.cuadrado(l)
+     def cuadrado(l), do: 4*l
+    end
 ---
 ## Visibilidad de funciones
-```elixir
 #-Se pueden utilizar funciones privadas con el constructor def
 #-Función Publica y privada 
 
-defmodule TestPublicoPrivado do
- def funcion_publica(msg) do
- IO.puts("#{msg} publico")
- funcion_privada(msg)
- end
- defp funcion_privada(msg) do
- IO.puts("#{msg} privado")
- end
-end
-TestPublicoPrivado.funcion_publica("este es un mensaje")
-```
+    defmodule TestPublicoPrivado do
+     def funcion_publica(msg) do
+     IO.puts("#{msg} publico")
+     funcion_privada(msg)
+     end
+     defp funcion_privada(msg) do
+     IO.puts("#{msg} privado")
+     end
+    end
+    TestPublicoPrivado.funcion_publica("este es un mensaje")
 ---
 ## Modulo geometria
-```elixir
-defmodule Geometria do
- def perimetro1(l), do: cuadrado(l)
- def perimetro2(l), do: Geometria.cuadrado(l)
- defp cuadrado(l), do: 4*l
-end
-```
+    defmodule Geometria do
+     def perimetro1(l), do: cuadrado(l)
+     def perimetro2(l), do: Geometria.cuadrado(l)
+     defp cuadrado(l), do: 4*l
+    end
 ---
 ## Operador pipeline
-```elixir
 #Obtener el cuadrado de la suma de 2 numeros (4 y 5)
 
-defmodule Operaciones do
- def suma(n1,n2), do: n1 + n2
- def cuadrado(n), do: n * n
-end
-```
+    defmodule Operaciones do
+     def suma(n1,n2), do: n1 + n2
+     def cuadrado(n), do: n * n
+    end
 ---
 ## Mediante un módulo test que realice las pruebas se podría realizar de la siguiente forma:
-```elixir
-defmodule Operaciones do
- def suma(n1,n2), do: n1 + n2
- def cuadrado(n), do: n * n
-end
-defmodule Test do
- def start do
- 4 |> Operaciones.suma(5) |>Operaciones.cuadrado
- end
-end
-```
+    defmodule Operaciones do
+     def suma(n1,n2), do: n1 + n2
+     def cuadrado(n), do: n * n
+    end
+    defmodule Test do
+     def start do
+     4 |> Operaciones.suma(5) |>Operaciones.cuadrado
+     end
+    end
 ---
 # Capitulo 7. Estructura del codigo en Elixir
 ## Polimorfismo(sobrecarga)
-```elixir
-defmodule Rectangulo do
- def area(l) do
- l * l
- end
- def area(l1,l2) do
- l1 * l2
- end
-end
-```
+    defmodule Rectangulo do
+     def area(l) do
+     l * l
+     end
+     def area(l1,l2) do
+     l1 * l2
+     end
+    end
 ---
 ## Haciendo que una función dependa de otra de diferente aridad, se podría realizar lo siguiente:
-```elixir
-defmodule Calculadora do
- def suma(n) do
- suma(n,0)
- end
- def suma(n1,n2) do
- n1 + n2
- end
-end
-```
+    defmodule Calculadora do
+     def suma(n) do
+     suma(n,0)
+     end
+     def suma(n1,n2) do
+     n1 + n2
+     end
+    end
 ## Argumentos por defecto
-```elixir
-defmodule Calculadora do
- def suma(n1,n2 \\ 0) do
- n1 + n2
- end
-end
+    defmodule Calculadora do
+     def suma(n1,n2 \\ 0) do
+     n1 + n2
+     end
+    end
 #Se puede utilizar cualquier combinación de argumentos por defecto: 
-defmodule Calculadora do
- def funcion(n1,n2 \\ 0, n3 \\ 1, n4, n5 \\ 2) do
- n1 + n2 + n3 + n4 + n5
- end
-end
-```
+
+    defmodule Calculadora do
+     def funcion(n1,n2 \\ 0, n3 \\ 1, n4, n5 \\ 2) do
+     n1 + n2 + n3 + n4 + n5
+     end
+    end
 ---
 ## Imports 
-```elixir
-import ModuloImportado
-defmodule ModuloMain do
- def main do
- IO.puts("Funcion main")
- funcion_importada("Esta funcion es importada")
- end
-end
+    import ModuloImportado
+    defmodule ModuloMain do
+     def main do
+     IO.puts("Funcion main")
+     funcion_importada("Esta funcion es importada")
+     end
+    end
 
 #Creamosel Modulo a importar modsec.ex
 #Escribimos el siguiente codigo: 
 
-defmodule ModuloImportado do
- def funcion_importada(msg) do
- IO.puts(msg)
- end
-end
+    defmodule ModuloImportado do
+     def funcion_importada(msg) do
+     IO.puts(msg)
+     end
+    end
 
 #Si no se quiere importar el modulo, se puede utilizar de manera directa indicando el modulo y la funcion esto es:
 
-defmodule ModuloMain do
- def main do
- IO.puts("Funcion main")
- ModuloImportado.funcion_importada("Esta funcion es importada")
- end
-end
-```
+    defmodule ModuloMain do
+     def main do
+     IO.puts("Funcion main")
+     ModuloImportado.funcion_importada("Esta funcion es importada")
+     end
+    end
 ---
 ## Alias
-```elixir
-defmodule ModuloMain do
- alias ModuloImportado, as: MI
+    defmodule ModuloMain do
+     alias ModuloImportado, as: MI
 
- def main do
- IO.puts("Funcion main")
- MI.funcion_importada("Esta funcion es importada con alias")
- end
-end
-```
+     def main do
+     IO.puts("Funcion main")
+     MI.funcion_importada("Esta funcion es importada con alias")
+     end
+    end
 ---
 ## Atributos de modulo
-```elixir
-defmodule Geometria do
- @pi 3.141592
- def area(r) do
- r*r*@pi
- end
- def circunferencia(r) do
- 2 * r * @pi
- end
-end
-```
+    defmodule Geometria do
+     @pi 3.141592
+     def area(r) do
+     r*r*@pi
+     end
+     def circunferencia(r) do
+     2 * r * @pi
+     end
+    end
 ---
 ## Secuencias de escape:
-```elixir
-IO.puts("1. Este es un mensaje")
-IO.puts("2. Este es un \n mensaje")
-IO.puts("3. Este es un \"mensaje\"")
-IO.puts("4. Este es un \\mensaje\\")
-IO.puts("5. Este \t es \tun \t mensaje")
-IO.puts("4. Este
-es un
-mensaje")
-```
+    IO.puts("1. Este es un mensaje")
+    IO.puts("2. Este es un \n mensaje")
+    IO.puts("3. Este es un \"mensaje\"")
+    IO.puts("4. Este es un \\mensaje\\")
+    IO.puts("5. Este \t es \tun \t mensaje")
+    IO.puts("4. Este
+    es un
+    mensaje")
 ---
 ## Concatenacion de Cadenas
-```elixir
-defmodule Cadena do
- def concatenar(cad1, cad2, separador \\ " ") do
- cad1 <> separador <> cad2
- end
-end
+    defmodule Cadena do
+     def concatenar(cad1, cad2, separador \\ " ") do
+     cad1 <> separador <> cad2
+     end
+    end
 Fundamentos de programación funcional con Erlang y Elixir,
 IO.puts(Cadena.concatenar("Hola", "Mundo"))
 IO.puts(Cadena.concatenar("Hola", "Mundo", "<->"))
-```
 ---
 ## Funciones
 ```elixir
